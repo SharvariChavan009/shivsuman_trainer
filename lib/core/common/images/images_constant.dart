@@ -1,6 +1,6 @@
 class AppImages{
   static const splashImage ="asset/images/Parking.webp";
-  static const backgroundImage="assets/image/6c0ca4623be0046d5e8c3e3a292f8567.webp";
+  static const companyLogo="asset/images/company_logo.webp";
 
 // "assets/image/app_background.jpg";
 }
