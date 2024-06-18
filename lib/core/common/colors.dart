@@ -11,4 +11,8 @@ class AppColors {
   static const Color errorColor = Color(0xFffF0101);
   static const Color newPri = Color(0xff212121);
   static const Color baseColor = Color(0xFF673AB7);
+  static const Color buttonColorNew = Color(0xFF3D6DFF);
+
+
+    
 }
