@@ -1,3 +1,5 @@
+import 'package:car_trainer_application/features/auth/presentation/login_screen.dart';
+
 import 'package:car_trainer_application/features/splash/presentation/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Car - Trainer',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
