@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
-      NavigationHelper.navigateAndReplace(context, LoginScreen());
+      NavigationHelper.navigateAndRemoveUntil(context, LoginScreen());
     });
   }
 
@@ -41,27 +41,22 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Expanded(
             flex: 5,
-            child: Container(
-           
-              child: Center(
-                // child: Container(
-                //   height: 150,
-                //   width: 150,
-                //   child: Image.asset(
-                //     AppImages.companyLogo,
-                //     fit: BoxFit.fill,
-                //   ),
-                // ),
+            child: Center(
+              child: SizedBox(
+                height: 150,
+                width: 150,
+                child: Image.asset(
+                  AppImages.companyLogo,
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
           ),
           Expanded(
             flex: 4,
-            child: Container(
-              child: Image.asset(
-                AppImages.splashImage,
-                fit: BoxFit.fill,
-              ),
+            child: Image.asset(
+              AppImages.splashImage,
+              fit: BoxFit.fill,
             ),
           )
         ],

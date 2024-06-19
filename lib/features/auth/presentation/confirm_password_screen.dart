@@ -1,26 +1,23 @@
-import 'package:car_trainer_application/core/common/colors.dart';
 import 'package:car_trainer_application/core/common/images/images_constant.dart';
 import 'package:car_trainer_application/core/common/utils/screen_dimension.dart';
 import 'package:car_trainer_application/core/common/widgets/c_button.dart';
 import 'package:car_trainer_application/core/common/widgets/c_text.dart';
 import 'package:car_trainer_application/core/common/widgets/c_text_field.dart';
-
 import 'package:car_trainer_application/core/navigation/navigationHelper.dart';
-import 'package:car_trainer_application/features/auth/presentation/forgot_password_screen.dart';
-import 'package:car_trainer_application/features/home/presentation/home_screen.dart';
+
+import 'package:car_trainer_application/features/auth/presentation/login_screen.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class ConfirmPasswordScreen extends StatefulWidget {
+  const ConfirmPasswordScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<ConfirmPasswordScreen> createState() => _ConfirmPasswordScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController phoneController = TextEditingController();
+class _ConfirmPasswordScreenState extends State<ConfirmPasswordScreen> {
   TextEditingController passwordController = TextEditingController();
-
+  TextEditingController confirmPasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
-          "Login",
+          "Forgot Password",
           style: TextStyle(
               fontSize: 18,
               fontFamily: "Poppins",
@@ -62,16 +59,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Padding(
                                 padding: const EdgeInsets.only(
                                     left: 25.0, right: 25),
-                                child:
-                                    //  CommonTextField(
-                                    //   hintText: "Enter your phoneNumber",
-                                    //   controller: phoneController,
-                                    //   inputType: CustomTextInputType.number,
-                                    // ),
-                                    CustomTextField(
-                                      hintText: "Enter your phoneNumber",
-                                        controller: phoneController)
-                                        )),
+                                child: CustomTextField(
+                                    inputType: CustomTextInputType.password,
+                                    hintText: "New password",
+                                    controller: passwordController))),
                       ],
                     ),
                     const SizedBox(
@@ -83,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 25, left: 25),
                           child: CommomText(
-                            text: "phone Error",
+                            text: "password Error",
                             textColor: Colors.red,
                           ),
                         )
@@ -96,12 +87,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         Expanded(
                             child: Padding(
-                          padding: const EdgeInsets.only(left: 25.0, right: 25),
-                          child:  CustomTextField(
-                                      hintText: "Enter your password",
-                                      inputType: CustomTextInputType.password,
-                                        controller: passwordController)
-                        )),
+                                padding: const EdgeInsets.only(
+                                    left: 25.0, right: 25),
+                                child: CustomTextField(
+                                    inputType: CustomTextInputType.password,
+                                    hintText: "Confirm password",
+                                    controller: confirmPasswordController))),
                       ],
                     ),
                     const SizedBox(
@@ -113,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 25, left: 25),
                           child: CommomText(
-                            text: "Password Error",
+                            text: "confirm Password Error",
                             textColor: Colors.red,
                           ),
                         )
@@ -125,35 +116,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     Padding(
                       padding: const EdgeInsets.only(left: 25, right: 25.0),
                       child: GestureDetector(
-                        child: CommonButton(buttonName: "Log in"),
+                        child: CommonButton(buttonName: "CONTINUE"),
                         onTap: () {
                           NavigationHelper.navigateAndRemoveUntil(
-                              context, HomeScreen());
+                              context, LoginScreen());
                         },
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 25, left: 25),
-                          child: GestureDetector(
-                            child: CommomText(
-                              text: "Forgot password?",
-                              
-                              textColor: AppColors.buttonColorNew,
-                            ),
-                            onTap: () {
-                              NavigationHelper.navigateTo(
-                                  context, ForgotPasswordScreen());
-                            },
-                          ),
-                        )
-                      ],
-                    )
                   ],
                 ),
               )),
