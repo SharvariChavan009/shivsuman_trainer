@@ -198,6 +198,17 @@ class _OtpScreenState extends State<OtpScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        leading: GestureDetector(
+          child: const Icon(
+            Icons.turn_left,
+            size: 35,
+              color: AppColors.darkColor,
+          
+          ),
+          onTap: () {
+            NavigationHelper.goBack(context);
+          },
+        ),
         title: Text(
           "Verification",
           style: TextStyle(
@@ -310,7 +321,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       child: GestureDetector(
                         child: CommonButton(buttonName: "Verify OTP"),
                         onTap: () {
-                          NavigationHelper.navigateAndRemoveUntil(
+                          NavigationHelper.navigateTo(
                               context, ConfirmPasswordScreen());
                         },
                       ),

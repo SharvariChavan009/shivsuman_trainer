@@ -1,11 +1,14 @@
+import 'package:car_trainer_application/core/common/colors.dart';
 import 'package:car_trainer_application/core/common/images/images_constant.dart';
 import 'package:car_trainer_application/core/common/utils/screen_dimension.dart';
+import 'package:car_trainer_application/core/common/validation_variables.dart';
 import 'package:car_trainer_application/core/common/widgets/c_button.dart';
 import 'package:car_trainer_application/core/common/widgets/c_text.dart';
 import 'package:car_trainer_application/core/common/widgets/c_text_field.dart';
 import 'package:car_trainer_application/core/navigation/navigationHelper.dart';
 
 import 'package:car_trainer_application/features/auth/presentation/login_screen.dart';
+import 'package:car_trainer_application/features/home/settings/presentation/setting_screen.dart';
 import 'package:flutter/material.dart';
 
 class ConfirmPasswordScreen extends StatefulWidget {
@@ -24,6 +27,17 @@ class _ConfirmPasswordScreenState extends State<ConfirmPasswordScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        leading: GestureDetector(
+          child: const Icon(
+            Icons.turn_left,
+            size: 35,
+              color: AppColors.darkColor,
+          
+          ),
+          onTap: () {
+            NavigationHelper.goBack(context);
+          },
+        ),
         title: Text(
           "Forgot Password",
           style: TextStyle(
@@ -118,8 +132,11 @@ class _ConfirmPasswordScreenState extends State<ConfirmPasswordScreen> {
                       child: GestureDetector(
                         child: CommonButton(buttonName: "CONTINUE"),
                         onTap: () {
-                          NavigationHelper.navigateAndRemoveUntil(
-                              context, LoginScreen());
+                          ValidationAllVariables.changePasswordPage == true
+                              ? NavigationHelper.navigateAndRemoveUntil(
+                                  context, SettingScreen())
+                              : NavigationHelper.navigateAndRemoveUntil(
+                                  context, LoginScreen());
                         },
                       ),
                     ),

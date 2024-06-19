@@ -19,4 +19,8 @@ class ValidationAllVariables {
   //! New Permission variables
 
   static bool permissionVar = false;
+
+  //! For Conditionally Navigate
+
+  static bool changePasswordPage = false;
 }

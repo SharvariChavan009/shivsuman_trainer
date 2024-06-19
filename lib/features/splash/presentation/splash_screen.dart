@@ -2,6 +2,7 @@ import 'package:car_trainer_application/core/common/images/images_constant.dart'
 import 'package:car_trainer_application/core/common/utils/screen_dimension.dart';
 import 'package:car_trainer_application/core/navigation/navigationHelper.dart';
 import 'package:car_trainer_application/features/auth/presentation/login_screen.dart';
+import 'package:car_trainer_application/features/home/settings/presentation/setting_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -36,6 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
     //! ----------------------------------------------------------------
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -54,9 +56,15 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           Expanded(
             flex: 4,
-            child: Image.asset(
-              AppImages.splashImage,
-              fit: BoxFit.fill,
+            child: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    AppImages.splashImage,
+                  ),
+                ],
+              ),
             ),
           )
         ],
