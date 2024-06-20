@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../colors.dart';
@@ -7,6 +8,8 @@ import '../colors.dart';
 enum CustomTextInputType { text, email, number, password, alphanumeric }
 
 class CustomTextField extends StatelessWidget {
+  final bool readOnly;
+
   final String? hintText;
   final TextInputAction? textInputAction;
   final CustomTextInputType inputType;
@@ -30,6 +33,7 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
     required this.controller,
+    this.readOnly = false,
     this.hintText,
     this.textInputAction = TextInputAction.none,
     this.inputType = CustomTextInputType.text,
@@ -133,6 +137,7 @@ class CustomTextField extends StatelessWidget {
       width:
           width ?? (screenSize.width * 0.22).clamp(minWidth, double.infinity),
       child: TextFormField(
+        readOnly: readOnly,
         textInputAction: textInputAction,
         style: TextStyle(
             fontFamily: "Poppins", color: AppColors.primaryColor, fontSize: 14),

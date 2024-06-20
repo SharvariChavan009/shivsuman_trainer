@@ -1,3 +1,4 @@
+import 'package:car_trainer_application/core/common/colors.dart';
 import 'package:car_trainer_application/core/common/images/images_constant.dart';
 import 'package:car_trainer_application/core/common/utils/screen_dimension.dart';
 import 'package:car_trainer_application/core/common/widgets/c_button.dart';
@@ -24,6 +25,18 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        leading: GestureDetector(
+          child: const Icon(
+            Icons.turn_left,
+            size: 35,
+              color: AppColors.darkColor,
+             
+           
+          ),
+          onTap: () {
+            NavigationHelper.goBack(context);
+          },
+        ),
         title: Text(
           "Forgot Password",
           style: TextStyle(

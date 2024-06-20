@@ -12,6 +12,11 @@ class AppColors {
   static const Color newPri = Color(0xff212121);
   static const Color baseColor = Color(0xFF673AB7);
   static const Color buttonColorNew = Color(0xFF3D6DFF);
+  static const Color green = Color(0xFF28A164);
+  static const Color settingScreenBgColor = Color(0xFFEDF3FF);
+
+
+  
 
 
     
