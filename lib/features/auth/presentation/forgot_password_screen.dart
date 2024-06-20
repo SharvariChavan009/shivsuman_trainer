@@ -29,9 +29,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           child: const Icon(
             Icons.turn_left,
             size: 35,
-              color: AppColors.darkColor,
-             
-           
+            color: AppColors.darkColor,
           ),
           onTap: () {
             NavigationHelper.goBack(context);
@@ -51,68 +49,66 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         padding: const EdgeInsets.only(top: 30.0),
         child: Column(
           children: [
-          Expanded(
-            flex: 5,
-            child: Center(
-              child: SizedBox(
-                height: ScreenDimension.screenHeight * 0.34,
-                child: Image.asset(
-                  AppImages.loginscreenLogo,
-                  fit: BoxFit.fill,
+            Expanded(
+              flex: 5,
+              child: Center(
+                child: SizedBox(
+                  height: ScreenDimension.screenHeight * 0.34,
+                  child: Image.asset(
+                    AppImages.loginscreenLogo,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
             ),
-          ),
-             Expanded(
+            Expanded(
               flex: 5,
               child: Container(
-               child: Column(
-                children: [
-
-                     Row(
-              children: [
-                Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.only(left: 25.0, right: 25),
-                  child:  CustomTextField(
-                                      hintText: "Enter your phoneNumber",
-                                        controller: mobileController)
-                )),
-              ],
-            ),
-            const SizedBox(
-              height: 2,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 25, left: 25),
-                  child: CommomText(
-                    text: "mobile Error",
-                    textColor: Colors.red,
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 25, right: 25.0),
-              child: GestureDetector(
-                child: CommonButton(buttonName: "Send OTP"),
-                onTap: () {
-                  NavigationHelper.navigateTo(context, OtpScreen());
-                },
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                            child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 25.0, right: 25),
+                                child: CustomTextField(
+                                  inputType: CustomTextInputType.number,
+                                    hintText: "Enter your phoneNumber",
+                                    controller: mobileController))),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 25, left: 25),
+                          child: CommomText(
+                            text: "mobile Error",
+                            textColor: Colors.red,
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 25, right: 25.0),
+                      child: GestureDetector(
+                        child: CommonButton(buttonName: "Send OTP"),
+                        onTap: () {
+                          NavigationHelper.navigateTo(context, OtpScreen());
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-
-                ],
-               ),
-              ),
-            ),
-         
           ],
         ),
       ),

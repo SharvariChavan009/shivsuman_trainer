@@ -3,6 +3,10 @@ class AppImages {
   static const companyLogo = "asset/images/companyLogo.webp";
   static const loginscreenLogo = "asset/images/Carpool-bro 1.webp";
   static const personPlaceholder = "asset/images/person.webp";
+  static const videoThumbnail  = "asset/images/video_thumbnail.webp";
+
+
+  
 
   
 
