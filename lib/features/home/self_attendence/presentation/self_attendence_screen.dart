@@ -24,7 +24,6 @@ class _SelfAttendenceScreenState extends State<SelfAttendenceScreen> {
   bool _checkInClicked = false;
   bool _checkOutClicked = false;
 
-
   void _datePicker() {
     final DateTime now = DateTime.now();
     final DateFormat pickYear = DateFormat('dd-MM-yyyy');
@@ -114,13 +113,15 @@ class _SelfAttendenceScreenState extends State<SelfAttendenceScreen> {
         children: [
           //! Section 1
 
-          TableCalendar(
-            daysOfWeekStyle: DaysOfWeekStyle(
-              // weekdayStyle: CustomStyles.verySmallTextStyle(),
-              // weekendStyle: CustomStyles.verySmallTextStyle(
-              //     fontSize: CustomStyles.smallSFontSize),
-            ),
-            calendarStyle: CalendarStyle(
+          Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: TableCalendar(
+              daysOfWeekStyle: DaysOfWeekStyle(
+                  // weekdayStyle: CustomStyles.verySmallTextStyle(),
+                  // weekendStyle: CustomStyles.verySmallTextStyle(
+                  //     fontSize: CustomStyles.smallSFontSize),
+                  ),
+              calendarStyle: CalendarStyle(
                 // weekendTextStyle: CustomStyles.verySmallTextStyle(
                 //   fontSize: CustomStyles.smallSFontSize,
                 //   fontWeight: CustomStyles.smallFontWeight,
@@ -139,40 +140,40 @@ class _SelfAttendenceScreenState extends State<SelfAttendenceScreen> {
                 //     fontFamily: CustomStyles.popponsFont,
                 //     color: CustomStyles.appthemeColor),
                 selectedDecoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.buttonColorNew,
                   shape: BoxShape.circle,
                 ),
                 // selectedTextStyle: CustomStyles.boldTextStyle(
                 //   color: CustomStyles.appthemeColor,
                 //   fontSize: CustomStyles.mediumXSFontSize,
                 // )
+              ),
+              headerVisible: false,
+              selectedDayPredicate: (day) => isSameDay(day, _selectedDate),
+              pageAnimationEnabled: false,
+              firstDay: DateTime.utc(2010, 10, 16),
+              lastDay: DateTime.utc(2030, 3, 14),
+              availableGestures: AvailableGestures.horizontalSwipe,
+              focusedDay: _selectedDate,
+              calendarFormat: CalendarFormat.week,
+              startingDayOfWeek: StartingDayOfWeek.monday,
+              onDaySelected: (selectedDate, focusedDate) {
+                DateTime currentWeekStart = _selectedDate
+                    .subtract(Duration(days: _selectedDate.weekday - 1));
+                DateTime currentWeekEnd =
+                    currentWeekStart.add(const Duration(days: 6));
+                if (selectedDate.isBefore(currentWeekStart) ||
+                    selectedDate.isAfter(currentWeekEnd)) {
+                  setState(() async {
+                    _selectedDate = currentWeekStart;
+                  });
+                } else {
+                  // setState(() {
+                  //     _selectedDate = selectedDate;
+                  // });
+                }
+              },
             ),
-            headerVisible: false,
-            selectedDayPredicate: (day) =>
-                isSameDay(day, _selectedDate),
-            pageAnimationEnabled: false,
-            firstDay: DateTime.utc(2010, 10, 16),
-            lastDay: DateTime.utc(2030, 3, 14),
-            availableGestures: AvailableGestures.horizontalSwipe,
-            focusedDay: _selectedDate,
-            calendarFormat: CalendarFormat.week,
-            startingDayOfWeek: StartingDayOfWeek.monday,
-            onDaySelected: (selectedDate, focusedDate) {
-              DateTime currentWeekStart = _selectedDate
-                  .subtract(Duration(days: _selectedDate.weekday - 1));
-              DateTime currentWeekEnd =
-              currentWeekStart.add(const Duration(days: 6));
-              if (selectedDate.isBefore(currentWeekStart) ||
-                  selectedDate.isAfter(currentWeekEnd)) {
-                setState(() async {
-                  _selectedDate = currentWeekStart;
-                });
-              } else {
-                // setState(() {
-                //     _selectedDate = selectedDate;
-                // });
-              }
-            },
           ),
 
           //! Section 2

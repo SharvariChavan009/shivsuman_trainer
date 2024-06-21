@@ -6,6 +6,7 @@ import 'package:car_trainer_application/core/navigation/navigationHelper.dart';
 import 'package:car_trainer_application/features/home/notification/presentation/notification_screen.dart';
 import 'package:car_trainer_application/features/home/self_attendence/presentation/self_attendence_screen.dart';
 import 'package:car_trainer_application/features/home/settings/presentation/setting_screen.dart';
+import 'package:car_trainer_application/features/home/student/presentation/student_screen.dart';
 import 'package:car_trainer_application/features/home/training_videos/presentation/training_videos_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -244,7 +245,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           onTap: () {
-                            if (index == 2) {
+                            if (index == 0) {
+                              NavigationHelper.navigateTo(
+                                  context, const StudentScreen());
+                            } else if (index == 2) {
                               NavigationHelper.navigateTo(
                                   context, const SettingScreen());
                             }

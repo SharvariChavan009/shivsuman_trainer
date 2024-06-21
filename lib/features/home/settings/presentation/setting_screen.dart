@@ -47,15 +47,7 @@ class _SettingScreenState extends State<SettingScreen> {
               NavigationHelper.navigateAndRemoveUntil(context, HomeScreen());
             },
           ),
-          title: const Text(
-            "Settings",
-            style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-                letterSpacing: 1,
-                fontFamily: "Poppins"),
-          ),
+         
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 15.0),
