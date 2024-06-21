@@ -4,6 +4,7 @@ import 'package:car_trainer_application/core/common/images/images_constant.dart'
 import 'package:car_trainer_application/core/common/utils/screen_dimension.dart';
 import 'package:car_trainer_application/core/navigation/navigationHelper.dart';
 import 'package:car_trainer_application/features/home/notification/presentation/notification_screen.dart';
+import 'package:car_trainer_application/features/home/self_attendence/presentation/self_attendence_screen.dart';
 import 'package:car_trainer_application/features/home/settings/presentation/setting_screen.dart';
 import 'package:car_trainer_application/features/home/training_videos/presentation/training_videos_screen.dart';
 import 'package:flutter/material.dart';
@@ -78,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //! Container 1
 
             Expanded(
-              flex: 3,
+              flex: 4,
               child: Column(
                 children: [
                   CarouselSlider.builder(
@@ -131,6 +132,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             if (index == 0) {
                               NavigationHelper.navigateTo(
                                   context, TrainingVideosScreen());
+                            } else if (index == 1) {
+                              NavigationHelper.navigateTo(
+                                  context, SelfAttendenceScreen());
                             }
                           },
                         );

@@ -219,13 +219,12 @@ class _OtpScreenState extends State<OtpScreen> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 5,
-            child: Center(
+      body:SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Center(
               child: SizedBox(
                 height: ScreenDimension.screenHeight * 0.34,
                 child: Image.asset(
@@ -234,123 +233,122 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
               ),
             ),
-          ),
-          Expanded(
-              flex: 5,
-              child: Container(
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 25, left: 25),
-                          child: CommomText(
-                            text: "VERIFICATION CODE",
-                          ),
-                        )
-                      ],
+            
+            Container(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 25, left: 25),
+                        child: CommomText(
+                          text: "VERIFICATION CODE",
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Center(
+                    child: Text(
+                      textAlign: TextAlign.center,
+                      "Enter the Verification code that was sent\n to your phone number ",
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: AppColors.primaryColor,
+                          fontFamily: "Poppins"),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Center(
-                      child: Text(
-                        textAlign: TextAlign.center,
-                        "Enter the Verification code that was sent\n to your phone number ",
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: AppColors.primaryColor,
-                            fontFamily: "Poppins"),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Pinput(
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(RegExp("[0-9]")),
-                        FilteringTextInputFormatter.deny(RegExp(
-                            '(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])'))
-                      ],
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      scrollPadding: const EdgeInsets.all(15),
-                      controller: pinController,
-                      focusNode: focusNode,
-                      defaultPinTheme: PinTheme(
-                        width: 58.74,
-                        height: 58.74,
-                        // textStyle: CustomStyles.appbarTextStyle(),
-                        decoration: BoxDecoration(
-                          //  color: Colors.red,
-                          borderRadius: BorderRadius.circular(15.0),
-                          border: Border.all(
-                            color: Colors.black, // Set the border color
-                            width: 1.0, // Set the border width
-                          ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Pinput(
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                      FilteringTextInputFormatter.deny(RegExp(
+                          '(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])'))
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    scrollPadding: const EdgeInsets.all(15),
+                    controller: pinController,
+                    focusNode: focusNode,
+                    defaultPinTheme: PinTheme(
+                      width: 58.74,
+                      height: 58.74,
+                      // textStyle: CustomStyles.appbarTextStyle(),
+                      decoration: BoxDecoration(
+                        //  color: Colors.red,
+                        borderRadius: BorderRadius.circular(15.0),
+                        border: Border.all(
+                          color: Colors.black, // Set the border color
+                          width: 1.0, // Set the border width
                         ),
                       ),
-                      hapticFeedbackType: HapticFeedbackType.lightImpact,
-                      onCompleted: (pin) {
-                        setState(() {
-                          code = pin;
-                          // isContinueButtonEnabled = code.isNotEmpty;
-                        });
-                        debugPrint('onCompleted: $pin');
+                    ),
+                    hapticFeedbackType: HapticFeedbackType.lightImpact,
+                    onCompleted: (pin) {
+                      setState(() {
+                        code = pin;
+                        // isContinueButtonEnabled = code.isNotEmpty;
+                      });
+                      debugPrint('onCompleted: $pin');
+                    },
+                    onChanged: (value) {
+                      debugPrint('onChanged: $value');
+                    },
+                    cursor: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 9),
+                          width: 22,
+                          height: 1,
+                          color: AppColors.buttonColorNew,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 25, right: 25.0),
+                    child: GestureDetector(
+                      child: CommonButton(buttonName: "Verify OTP"),
+                      onTap: () {
+                        NavigationHelper.navigateTo(
+                            context, ConfirmPasswordScreen());
                       },
-                      onChanged: (value) {
-                        debugPrint('onChanged: $value');
-                      },
-                      cursor: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 9),
-                            width: 22,
-                            height: 1,
-                            color: AppColors.buttonColorNew,
-                          ),
-                        ],
-                      ),
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25, right: 25.0),
-                      child: GestureDetector(
-                        child: CommonButton(buttonName: "Verify OTP"),
-                        onTap: () {
-                          NavigationHelper.navigateTo(
-                              context, ConfirmPasswordScreen());
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    text = RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(children: [
-                          TextSpan(
-                              text: '''Didn’t received the code? ''',
-                              style: TextStyle(color: Colors.black)),
-                          TextSpan(
-                            text: isResendAgain
-                                ? '''Try again in  $_start'''
-                                : '''Resend ''',
-                            style: TextStyle(color: Colors.black),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                if (isResendAgain) return;
-                                resend();
-                              },
-                          ),
-                        ]))
-                  ],
-                ),
-              )),
-        ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  text = RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(children: [
+                        TextSpan(
+                            text: '''Didn’t received the code? ''',
+                            style: TextStyle(color: Colors.black)),
+                        TextSpan(
+                          text: isResendAgain
+                              ? '''Try again in  $_start'''
+                              : '''Resend ''',
+                          style: TextStyle(color: Colors.black),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              if (isResendAgain) return;
+                              resend();
+                            },
+                        ),
+                      ]))
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
