@@ -5,6 +5,7 @@ import 'package:car_trainer_application/core/common/utils/screen_dimension.dart'
 import 'package:car_trainer_application/core/navigation/navigationHelper.dart';
 import 'package:car_trainer_application/features/home/notification/presentation/notification_screen.dart';
 import 'package:car_trainer_application/features/home/settings/presentation/setting_screen.dart';
+import 'package:car_trainer_application/features/home/training_videos/presentation/training_videos_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -21,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List listviewNameContainers = ["Training Videos", "Self Attendence"];
   List listviewImageContainers = [AllIcons.training, AllIcons.attendence];
 
-  List gridviewNameContainers = ["Student", "Expensives", "Settings"];
+  List gridviewNameContainers = ["Student", "Expenses", "Settings"];
   List gridviewImageContainers = [
     AllIcons.student,
     AllIcons.expensives,
@@ -46,10 +47,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // -----------------------------------------------------
-
-    // -----------------------------------------------------
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -92,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             elevation: 4,
                             color: Colors.white,
                             child: SizedBox(
-                              width: ScreenDimension.screenWidth * 0.78,
+                              width: ScreenDimension.screenWidth * 0.72,
                               height: ScreenDimension.screenHeight * 0.20,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -129,7 +126,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           onTap: () {
-                            print("Carousel Index: $index");
+                            print("Click Carousel Index: $index");
+
+                            if (index == 0) {
+                              NavigationHelper.navigateTo(
+                                  context, TrainingVideosScreen());
+                            }
                           },
                         );
                       },

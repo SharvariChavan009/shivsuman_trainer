@@ -59,7 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           },
         ),
         title: const Text(
-          "Account set up",
+          "Profile",
           style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -77,23 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SizedBox(
                 height: ScreenDimension.screenHeight * 0.03,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    "Set you account information",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        letterSpacing: 1,
-                        fontFamily: "Poppins"),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: ScreenDimension.screenHeight * 0.03,
-              ),
+              
               GestureDetector(
                 child: CircleAvatar(
                   radius: 50,
