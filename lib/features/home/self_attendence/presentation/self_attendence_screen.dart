@@ -4,6 +4,7 @@ import 'package:car_trainer_application/core/navigation/navigationHelper.dart';
 import 'package:car_trainer_application/features/home/notification/presentation/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class SelfAttendenceScreen extends StatefulWidget {
   const SelfAttendenceScreen({super.key});
@@ -13,6 +14,8 @@ class SelfAttendenceScreen extends StatefulWidget {
 }
 
 class _SelfAttendenceScreenState extends State<SelfAttendenceScreen> {
+  late DateTime _selectedDate;
+  DateTime focusedDay = DateTime.now();
   //!----------------------------------------------------------------
   String _checkInTime = "No time picked";
   String _checkOutTime = "No time picked";
@@ -44,6 +47,12 @@ class _SelfAttendenceScreenState extends State<SelfAttendenceScreen> {
     });
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _selectedDate = DateTime.now();
+  }
   //!----------------------------------------------------------------
 
   @override
@@ -105,9 +114,65 @@ class _SelfAttendenceScreenState extends State<SelfAttendenceScreen> {
         children: [
           //! Section 1
 
-          Container(
-            height: 200,
-            color: Colors.orange,
+          TableCalendar(
+            daysOfWeekStyle: DaysOfWeekStyle(
+              // weekdayStyle: CustomStyles.verySmallTextStyle(),
+              // weekendStyle: CustomStyles.verySmallTextStyle(
+              //     fontSize: CustomStyles.smallSFontSize),
+            ),
+            calendarStyle: CalendarStyle(
+                // weekendTextStyle: CustomStyles.verySmallTextStyle(
+                //   fontSize: CustomStyles.smallSFontSize,
+                //   fontWeight: CustomStyles.smallFontWeight,
+                //   fontFamily: CustomStyles.popponsFont,
+                // ),
+                // defaultTextStyle: CustomStyles.verySmallTextStyle(
+                //     fontSize: CustomStyles.smallSFontSize),
+                isTodayHighlighted: true,
+                todayDecoration: const BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
+                // todayTextStyle: CustomStyles.verySmallTextStyle(
+                //     fontSize: CustomStyles.mediumXSFontSize,
+                //     fontWeight: CustomStyles.smallFontWeight,
+                //     fontFamily: CustomStyles.popponsFont,
+                //     color: CustomStyles.appthemeColor),
+                selectedDecoration: const BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
+                // selectedTextStyle: CustomStyles.boldTextStyle(
+                //   color: CustomStyles.appthemeColor,
+                //   fontSize: CustomStyles.mediumXSFontSize,
+                // )
+            ),
+            headerVisible: false,
+            selectedDayPredicate: (day) =>
+                isSameDay(day, _selectedDate),
+            pageAnimationEnabled: false,
+            firstDay: DateTime.utc(2010, 10, 16),
+            lastDay: DateTime.utc(2030, 3, 14),
+            availableGestures: AvailableGestures.horizontalSwipe,
+            focusedDay: _selectedDate,
+            calendarFormat: CalendarFormat.week,
+            startingDayOfWeek: StartingDayOfWeek.monday,
+            onDaySelected: (selectedDate, focusedDate) {
+              DateTime currentWeekStart = _selectedDate
+                  .subtract(Duration(days: _selectedDate.weekday - 1));
+              DateTime currentWeekEnd =
+              currentWeekStart.add(const Duration(days: 6));
+              if (selectedDate.isBefore(currentWeekStart) ||
+                  selectedDate.isAfter(currentWeekEnd)) {
+                setState(() async {
+                  _selectedDate = currentWeekStart;
+                });
+              } else {
+                // setState(() {
+                //     _selectedDate = selectedDate;
+                // });
+              }
+            },
           ),
 
           //! Section 2

@@ -54,17 +54,10 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
           ),
-          Expanded(
-            flex: 4,
-            child: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    AppImages.splashImage,
-                  ),
-                ],
-              ),
+          Container(
+            child: Image.asset(
+              AppImages.splashImage,
+
             ),
           )
         ],
