@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:car_trainer_application/core/common/colors.dart';
 import 'package:car_trainer_application/core/common/images/images_constant.dart';
 import 'package:car_trainer_application/core/common/utils/screen_dimension.dart';
@@ -24,25 +23,52 @@ class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController registerController = TextEditingController();
 
-  @override
-  Widget build(BuildContext context) {
-    // --------------------------------
-    File? _imgFile;
+  final ImagePicker _picker = ImagePicker();
+  File? _image;
 
-    void takeSnapshot() async {
-      final ImagePicker picker = ImagePicker();
-      final XFile? img = await picker.pickImage(
-        source: ImageSource.gallery, // alternatively, use ImageSource.gallery
-        maxWidth: 400,
-      );
-      if (img == null) return;
+  Future<void> _pickImage(ImageSource source) async {
+    final pickedFile = await _picker.pickImage(source: source);
+    if (pickedFile != null) {
       setState(() {
-        _imgFile = File(img.path); // convert it to a Dart:io file
+        _image = File(pickedFile.path);
+
+        print("Image Uploaded");
       });
     }
+  }
 
-    // --------------------------------
+  void _showPickerDialog(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (ctx) {
+        return SafeArea(
+          child: Wrap(
+            children: [
+              ListTile(
+                leading: Icon(Icons.photo_library),
+                title: Text('Gallery'),
+                onTap: () {
+                  _pickImage(ImageSource.gallery);
+                  Navigator.of(ctx).pop();
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.photo_camera),
+                title: Text('Camera'),
+                onTap: () {
+                  _pickImage(ImageSource.camera);
+                  Navigator.of(ctx).pop();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -77,18 +103,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SizedBox(
                 height: ScreenDimension.screenHeight * 0.03,
               ),
-              
               GestureDetector(
                 child: CircleAvatar(
                   radius: 50,
-                  backgroundImage: (_imgFile == null)
+                  backgroundImage: (_image == null)
                       ? AssetImage(
                           AppImages.personPlaceholder,
                         )
-                      : FileImage(_imgFile!) as ImageProvider,
+                      : FileImage(_image!),
                 ),
                 onTap: () {
-                  takeSnapshot();
+                  _showPickerDialog(context);
                 },
               ),
               SizedBox(
