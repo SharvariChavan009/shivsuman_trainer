@@ -3,6 +3,7 @@ import 'package:car_trainer_application/core/common/colors.dart';
 import 'package:car_trainer_application/core/common/images/images_constant.dart';
 import 'package:car_trainer_application/core/common/utils/screen_dimension.dart';
 import 'package:car_trainer_application/core/navigation/navigationHelper.dart';
+import 'package:car_trainer_application/features/home/expenses/presentation/expenses_screen.dart';
 import 'package:car_trainer_application/features/home/notification/presentation/notification_screen.dart';
 import 'package:car_trainer_application/features/home/self_attendence/presentation/self_attendence_screen.dart';
 import 'package:car_trainer_application/features/home/settings/presentation/setting_screen.dart';
@@ -248,6 +249,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             if (index == 0) {
                               NavigationHelper.navigateTo(
                                   context, const StudentScreen());
+                            } else if (index == 1) {
+                              NavigationHelper.navigateTo(
+                                  context, ExpensesScreen());
                             } else if (index == 2) {
                               NavigationHelper.navigateTo(
                                   context, const SettingScreen());

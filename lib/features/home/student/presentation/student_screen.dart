@@ -3,6 +3,7 @@ import 'package:car_trainer_application/core/common/colors.dart';
 import 'package:car_trainer_application/core/common/images/images_constant.dart';
 import 'package:car_trainer_application/core/navigation/navigationHelper.dart';
 import 'package:car_trainer_application/features/home/notification/presentation/notification_screen.dart';
+import 'package:car_trainer_application/features/home/student/presentation/student_dialogbox.dart';
 import 'package:flutter/material.dart';
 
 class StudentScreen extends StatefulWidget {
@@ -49,7 +50,8 @@ class _StudentScreenState extends State<StudentScreen> {
                 size: 30,
               ),
               onTap: () {
-                NavigationHelper.navigateTo(context, const NotificationScreen());
+                NavigationHelper.navigateTo(
+                    context, const NotificationScreen());
               },
             ),
           )
@@ -103,9 +105,13 @@ class _StudentScreenState extends State<StudentScreen> {
               ),
             ),
             onTap: () {
-
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return StudentDialogBox();
+                },
+              );
               print("Click to student Index: $index");
-            
             },
           );
         },
