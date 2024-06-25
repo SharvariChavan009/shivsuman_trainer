@@ -83,91 +83,93 @@ class _HomeScreenState extends State<HomeScreen> {
 
             Expanded(
               flex: 4,
-              child: Column(
-                children: [
-                  CarouselSlider.builder(
-                      itemCount: listviewNameContainers.length,
-                      itemBuilder: (context, index, realIndex) {
-                        return GestureDetector(
-                          child: Card(
-                            elevation: 4,
-                            color: Colors.white,
-                            child: SizedBox(
-                              width: ScreenDimension.screenWidth * 0.72,
-                              height: ScreenDimension.screenHeight * 0.20,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: SizedBox(
-                                      height:
-                                          ScreenDimension.screenHeight * 0.10,
-                                      width: ScreenDimension.screenWidth * 0.28,
-                                      child: Image.asset(
-                                        listviewImageContainers[index],
-                                        fit: BoxFit.fill,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    CarouselSlider.builder(
+                        itemCount: listviewNameContainers.length,
+                        itemBuilder: (context, index, realIndex) {
+                          return GestureDetector(
+                            child: Card(
+                              elevation: 4,
+                              color: Colors.white,
+                              child: SizedBox(
+                                width: ScreenDimension.screenWidth * 0.72,
+                                height: ScreenDimension.screenHeight * 0.20,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: SizedBox(
+                                        height:
+                                            ScreenDimension.screenHeight * 0.10,
+                                        width: ScreenDimension.screenWidth * 0.28,
+                                        child: Image.asset(
+                                          listviewImageContainers[index],
+                                          fit: BoxFit.fill,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 5.0),
-                                    child: FittedBox(
-                                      fit: BoxFit.contain,
-                                      child: AutoSizeText(
-                                        listviewNameContainers[index],
-                                        maxLines: 1,
-                                        style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: AppColors.primaryColor,
-                                            fontFamily: "Poppins"),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 5.0),
+                                      child: FittedBox(
+                                        fit: BoxFit.contain,
+                                        child: AutoSizeText(
+                                          listviewNameContainers[index],
+                                          maxLines: 1,
+                                          style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors.primaryColor,
+                                              fontFamily: "Poppins"),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          onTap: () {
-                            print("Click Carousel Index: $index");
-
-                            if (index == 0) {
-                              NavigationHelper.navigateTo(
-                                  context, TrainingVideosScreen());
-                            } else if (index == 1) {
-                              NavigationHelper.navigateTo(
-                                  context, SelfAttendenceScreen());
-                            }
-                          },
-                        );
-                      },
-                      options: CarouselOptions(
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            currentImage = index;
-                          });
+                            onTap: () {
+                              print("Click Carousel Index: $index");
+                
+                              if (index == 0) {
+                                NavigationHelper.navigateTo(
+                                    context, TrainingVideosScreen());
+                              } else if (index == 1) {
+                                NavigationHelper.navigateTo(
+                                    context, SelfAttendenceScreen());
+                              }
+                            },
+                          );
                         },
-                        aspectRatio: 16 / 9,
-                        viewportFraction: 0.8,
-                        initialPage: 0,
-                        enableInfiniteScroll: true,
-                        reverse: false,
-                        autoPlay: true,
-                        autoPlayInterval: const Duration(seconds: 3),
-                        autoPlayAnimationDuration:
-                            const Duration(milliseconds: 800),
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enlargeCenterPage: true,
-                        scrollDirection: Axis.horizontal,
-                      )),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(2, (index) {
-                      return indicator(index);
-                    }),
-                  )
-                ],
+                        options: CarouselOptions(
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              currentImage = index;
+                            });
+                          },
+                          aspectRatio: 16 / 9,
+                          viewportFraction: 0.8,
+                          initialPage: 0,
+                          enableInfiniteScroll: true,
+                          reverse: false,
+                          autoPlay: true,
+                          autoPlayInterval: const Duration(seconds: 3),
+                          autoPlayAnimationDuration:
+                              const Duration(milliseconds: 800),
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          enlargeCenterPage: true,
+                          scrollDirection: Axis.horizontal,
+                        )),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(2, (index) {
+                        return indicator(index);
+                      }),
+                    )
+                  ],
+                ),
               ),
             ),
 
