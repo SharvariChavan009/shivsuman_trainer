@@ -24,6 +24,7 @@ class PasswordCubit extends Cubit<PasswordState> {
     } else {
       if (ValidationsAll.isValidPassword(pass)) {
         ValidationAllVariables.passwordVar = true;
+        
 
         emit(PasswordInitial());
       } else {

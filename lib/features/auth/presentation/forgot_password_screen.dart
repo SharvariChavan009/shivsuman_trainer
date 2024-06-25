@@ -4,10 +4,15 @@ import 'package:car_trainer_application/core/common/utils/screen_dimension.dart'
 import 'package:car_trainer_application/core/common/widgets/c_button.dart';
 import 'package:car_trainer_application/core/common/widgets/c_text.dart';
 import 'package:car_trainer_application/core/common/widgets/c_text_field.dart';
+import 'package:car_trainer_application/core/common/u_validations_all.dart';
 
 import 'package:car_trainer_application/core/navigation/navigationHelper.dart';
+import 'package:car_trainer_application/core/common/cubits/email_validation/email_cubit.dart';
+import 'package:car_trainer_application/features/auth/cubit/forgot_password/forgot_password_cubit.dart';
+import 'package:car_trainer_application/features/auth/presentation/login_screen.dart';
 import 'package:car_trainer_application/features/auth/presentation/otp_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -17,7 +22,7 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  TextEditingController mobileController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -47,69 +52,115 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 30.0),
-        child: Column(
-          children: [
-            Expanded(
-              flex: 5,
-              child: Center(
-                child: SizedBox(
-                  height: ScreenDimension.screenHeight * 0.34,
-                  child: Image.asset(
-                    AppImages.loginscreenLogo,
-                    fit: BoxFit.fill,
-                  ),
+        child: BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
+          listener: (context, state) {
+            if (state is ForgotPasswordErrorState) {
+              final snackBar = SnackBar(
+                content: Text(
+                  "Please enter valid email",
+                  style: const TextStyle(color: Colors.white),
                 ),
-              ),
-            ),
-            Expanded(
-              flex: 5,
-              child: Container(
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 25.0, right: 25),
-                                child: CustomTextField(
-                                  inputType: CustomTextInputType.number,
-                                    hintText: "Enter your phoneNumber",
-                                    controller: mobileController))),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 2,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 25, left: 25),
-                          child: CommomText(
-                            text: "mobile Error",
-                            textColor: Colors.red,
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25, right: 25.0),
-                      child: GestureDetector(
-                        child: CommonButton(buttonName: "Send OTP"),
-                        onTap: () {
-                          NavigationHelper.navigateTo(context, OtpScreen());
-                        },
+                backgroundColor: Colors.red,
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
+            if (state is ForgotPasswordSuccessState) {
+              NavigationHelper.navigateAndRemoveUntil(context, OtpScreen());
+            }
+          },
+          builder: (context, state) {
+            return Column(
+              children: [
+                Expanded(
+                  flex: 5,
+                  child: Center(
+                    child: SizedBox(
+                      height: ScreenDimension.screenHeight * 0.34,
+                      child: Image.asset(
+                        AppImages.loginscreenLogo,
+                        fit: BoxFit.fill,
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          ],
+                Expanded(
+                  flex: 5,
+                  child: Container(
+                    child: BlocBuilder<EmailCubit, EmailState>(
+                      builder: (context, state) {
+                        return Column(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                    child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 25.0, right: 25),
+                                        child: CustomTextField(
+                                          inputType: CustomTextInputType.email,
+                                          hintText: "Enter your email",
+                                          controller: emailController,
+                                          borderColor:
+                                              (state is EmailValidatorState
+                                                  ? Colors.red
+                                                  : AppColors.buttonColorNew
+                                                      .withOpacity(0.2)),
+                                        ))),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 2,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: 25, left: 25),
+                                  child: Visibility(
+                                      visible: state is EmailValidatorState,
+                                      child: (state is EmailValidatorState)
+                                          ? Text(
+                                              state.errorMessage2,
+                                              style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize: 12),
+                                            )
+                                          : Text("")),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 25, right: 25.0),
+                              child: GestureDetector(
+                                child: CommonButton(buttonName: "Send OTP"),
+                                onTap: () {
+                                  BlocProvider.of<EmailCubit>(context)
+                                      .Loginvalidation1(emailController.text);
+
+                                  if (ValidationsAll.isValidEmail(
+                                      emailController.text)) {
+                                    BlocProvider.of<ForgotPasswordCubit>(
+                                            context)
+                                        .forgotPasswordFunction(
+                                            emailController.text);
+                                  }
+                                },
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

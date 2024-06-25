@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class CommonButton extends StatefulWidget {
   String buttonName;
-  CommonButton({super.key, required this.buttonName});
+  Color? buttonColor;
+  CommonButton({super.key, required this.buttonName, this.buttonColor});
 
   @override
   State<CommonButton> createState() => _CommonButtonState();
@@ -18,7 +19,9 @@ class _CommonButtonState extends State<CommonButton> {
             color: AppColors.buttonColorNew,
             width: 0.5,
           ),
-          color: AppColors.buttonColorNew,
+          color: widget.buttonColor == null
+              ? AppColors.buttonColorNew
+              : widget.buttonColor,
           borderRadius: BorderRadius.circular(10)),
       child: Padding(
         padding: const EdgeInsets.all(4.0),

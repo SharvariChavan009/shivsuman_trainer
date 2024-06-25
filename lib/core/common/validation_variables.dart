@@ -23,4 +23,6 @@ class ValidationAllVariables {
   //! For Conditionally Navigate
 
   static bool changePasswordPage = false;
+
+    static String? utoken;
 }

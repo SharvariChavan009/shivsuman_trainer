@@ -25,11 +25,12 @@ class _HomeScreenState extends State<HomeScreen> {
   List listviewNameContainers = ["Training Videos", "Self Attendence"];
   List listviewImageContainers = [AllIcons.training, AllIcons.attendence];
 
-  List gridviewNameContainers = ["Student", "Expenses", "Settings"];
+  List gridviewNameContainers = ["Student", "Expenses", "Settings", "Logout"];
   List gridviewImageContainers = [
     AllIcons.student,
     AllIcons.expensives,
-    AllIcons.settings
+    AllIcons.settings,
+    AllIcons.logout
   ];
 
   int currentImage = 0;
@@ -101,8 +102,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: SizedBox(
                                       height:
-                                          ScreenDimension.screenHeight * 0.12,
-                                      width: ScreenDimension.screenWidth * 0.30,
+                                          ScreenDimension.screenHeight * 0.10,
+                                      width: ScreenDimension.screenWidth * 0.28,
                                       child: Image.asset(
                                         listviewImageContainers[index],
                                         fit: BoxFit.fill,
@@ -255,6 +256,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             } else if (index == 2) {
                               NavigationHelper.navigateTo(
                                   context, const SettingScreen());
+                            } else if (index == 3) {
+                              print("Clicked - Logout");
                             }
                           },
                         );
