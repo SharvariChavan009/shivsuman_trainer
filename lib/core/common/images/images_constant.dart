@@ -27,4 +27,7 @@ class AllIcons {
   static const totalDays = "asset/images/calendar.webp";
 
   static const check = "asset/images/image 87.webp";
+  static const logout = "asset/images/logout 1 (1).webp";
+
+  
 }

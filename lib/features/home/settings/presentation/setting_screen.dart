@@ -7,8 +7,10 @@ import 'package:car_trainer_application/features/auth/presentation/otp_screen.da
 import 'package:car_trainer_application/features/home/delete_accountt/dialogBox/delete_dialog.dart';
 import 'package:car_trainer_application/features/home/notification/presentation/notification_screen.dart';
 import 'package:car_trainer_application/features/home/presentation/home_screen.dart';
+import 'package:car_trainer_application/features/home/profile/cubit/get_profile_details/get_profile_details_cubit.dart';
 import 'package:car_trainer_application/features/home/profile/presentation/profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -143,7 +145,8 @@ class _SettingScreenState extends State<SettingScreen> {
                           ),
                         ),
                         onTap: () {
-                          NavigationHelper.navigateTo(context, ProfileScreen());
+                        BlocProvider.of<GetProfileDetailsCubit>(context).getUserDetailsFunction();
+                        NavigationHelper.navigateTo(context, ProfileScreen());
                         },
                       ),
                     ),

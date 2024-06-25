@@ -9,13 +9,13 @@ class StudentDialogBox extends StatefulWidget {
 }
 
 class _StudentDialogBoxState extends State<StudentDialogBox> {
- 
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      elevation: 2,
         child: SizedBox(
-      height: ScreenDimension.screenHeight*0.26,
-      width: ScreenDimension.screenWidth*0.96,
+      height: ScreenDimension.screenHeight * 0.26,
+      width: ScreenDimension.screenWidth * 0.96,
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(

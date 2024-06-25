@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'package:car_trainer_application/core/common/colors.dart';
 import 'package:car_trainer_application/core/common/images/images_constant.dart';
 import 'package:car_trainer_application/core/common/utils/screen_dimension.dart';
@@ -19,6 +20,8 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+  String varificationNumber = '';
+
   final pinController = TextEditingController();
   final focusNode = FocusNode();
   String code = '';
@@ -198,17 +201,7 @@ class _OtpScreenState extends State<OtpScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: GestureDetector(
-          child: const Icon(
-            Icons.turn_left,
-            size: 35,
-              color: AppColors.darkColor,
-          
-          ),
-          onTap: () {
-            NavigationHelper.goBack(context);
-          },
-        ),
+     
         title: Text(
           "Verification",
           style: TextStyle(
@@ -219,7 +212,7 @@ class _OtpScreenState extends State<OtpScreen> {
         ),
         centerTitle: true,
       ),
-      body:SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -233,7 +226,6 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
               ),
             ),
-            
             Container(
               child: Column(
                 children: [
@@ -297,6 +289,9 @@ class _OtpScreenState extends State<OtpScreen> {
                     },
                     onChanged: (value) {
                       debugPrint('onChanged: $value');
+
+                      varificationNumber = value;
+                      print("Verification Number: $varificationNumber");
                     },
                     cursor: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -316,10 +311,14 @@ class _OtpScreenState extends State<OtpScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 25, right: 25.0),
                     child: GestureDetector(
-                      child: CommonButton(buttonName: "Verify OTP"),
+                      child: CommonButton(buttonName: "Verify OTP",
+                      buttonColor: varificationNumber.length == 4? AppColors.buttonColorNew: AppColors.iconColor ,
+                      ),
                       onTap: () {
-                        NavigationHelper.navigateTo(
-                            context, ConfirmPasswordScreen());
+                        if (varificationNumber.length == 4) {
+                          NavigationHelper.navigateAndRemoveUntil(
+                              context, ConfirmPasswordScreen());
+                        }
                       },
                     ),
                   ),
