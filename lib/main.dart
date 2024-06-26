@@ -15,6 +15,7 @@ import 'package:car_trainer_application/core/common/cubits/mobile_validation/mob
 import 'package:car_trainer_application/core/common/cubits/password_validation/login_cubit.dart';
 import 'package:car_trainer_application/features/auth/presentation/login_screen.dart';
 import 'package:car_trainer_application/features/home/settings/presentation/setting_screen.dart';
+
 import 'package:car_trainer_application/features/splash/presentation/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,18 +46,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => EditProfileDetailsCubit()),
         BlocProvider(create: (context) => OldPasswordCubit()),
         BlocProvider(create: (context) => ChangePasswordCubit()),
-
-
-
-
-   
-
-
-
-
-
-
-
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
