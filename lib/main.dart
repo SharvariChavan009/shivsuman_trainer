@@ -1,6 +1,11 @@
 import 'package:car_trainer_application/features/auth/cubit/CheckEmailPassword/check_email_pass_cubit.dart';
 import 'package:car_trainer_application/features/auth/cubit/forgot_password/forgot_password_cubit.dart';
+import 'package:car_trainer_application/features/auth/cubit/reset_password/reset_password_cubit.dart';
+import 'package:car_trainer_application/features/auth/cubit/verify_otp/verify_otp_cubit.dart';
+import 'package:car_trainer_application/features/home/change_password/cubit/change_password/change_password_cubit.dart';
+import 'package:car_trainer_application/features/home/change_password/cubit/old_password_validation/old_password_cubit.dart';
 import 'package:car_trainer_application/features/home/presentation/home_screen.dart';
+import 'package:car_trainer_application/features/home/profile/cubit/edit_profile_details/edit_profile_details_cubit.dart';
 import 'package:car_trainer_application/features/home/profile/cubit/get_profile_details/get_profile_details_cubit.dart';
 import 'package:car_trainer_application/features/auth/bloc/menu_selection/menu_name_bloc.dart';
 import 'package:car_trainer_application/core/common/cubits/Textfield_validation/textfield_validation_cubit.dart';
@@ -35,6 +40,18 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => CheckEmailPassCubit()),
         BlocProvider(create: (context) => GetProfileDetailsCubit()),
         BlocProvider(create: (context) => ForgotPasswordCubit()),
+        BlocProvider(create: (context) => VerifyOtpCubit()),
+        BlocProvider(create: (context) => ResetPasswordCubit()),
+        BlocProvider(create: (context) => EditProfileDetailsCubit()),
+        BlocProvider(create: (context) => OldPasswordCubit()),
+        BlocProvider(create: (context) => ChangePasswordCubit()),
+
+
+
+
+   
+
+
 
 
 

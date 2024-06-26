@@ -1,6 +1,7 @@
 import 'package:car_trainer_application/core/common/colors.dart';
 import 'package:car_trainer_application/core/common/images/images_constant.dart';
 import 'package:car_trainer_application/core/common/utils/screen_dimension.dart';
+import 'package:car_trainer_application/core/common/validation_variables.dart';
 import 'package:car_trainer_application/core/common/widgets/c_button.dart';
 import 'package:car_trainer_application/core/common/widgets/c_text.dart';
 import 'package:car_trainer_application/core/common/widgets/c_text_field.dart';
@@ -13,6 +14,8 @@ import 'package:car_trainer_application/features/auth/presentation/login_screen.
 import 'package:car_trainer_application/features/auth/presentation/otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:car_trainer_application/core/common/validation_variables.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -26,6 +29,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ValidationAllVariables.emailVariable = emailController.text;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -138,7 +143,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                   const EdgeInsets.only(left: 25, right: 25.0),
                               child: GestureDetector(
                                 child: CommonButton(buttonName: "Send OTP"),
-                                onTap: () {
+                                onTap: () async {
                                   BlocProvider.of<EmailCubit>(context)
                                       .Loginvalidation1(emailController.text);
 
@@ -148,6 +153,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                             context)
                                         .forgotPasswordFunction(
                                             emailController.text);
+
+                                    var emailBox =
+                                        await Hive.openBox("emailBox");
+                                    emailBox.put(
+                                        "emailData", emailController.text);
                                   }
                                 },
                               ),

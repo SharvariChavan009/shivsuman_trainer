@@ -4,6 +4,7 @@ import 'package:car_trainer_application/core/common/validation_variables.dart';
 import 'package:car_trainer_application/core/navigation/navigationHelper.dart';
 import 'package:car_trainer_application/features/auth/presentation/forgot_password_screen.dart';
 import 'package:car_trainer_application/features/auth/presentation/otp_screen.dart';
+import 'package:car_trainer_application/features/home/change_password/presentation/change_password_screen.dart';
 import 'package:car_trainer_application/features/home/delete_accountt/dialogBox/delete_dialog.dart';
 import 'package:car_trainer_application/features/home/notification/presentation/notification_screen.dart';
 import 'package:car_trainer_application/features/home/presentation/home_screen.dart';
@@ -46,10 +47,9 @@ class _SettingScreenState extends State<SettingScreen> {
               color: AppColors.darkColor,
             ),
             onTap: () {
-              NavigationHelper.navigateAndRemoveUntil(context, HomeScreen());
+              NavigationHelper.goBack(context);
             },
           ),
-         
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 15.0),
@@ -71,45 +71,47 @@ class _SettingScreenState extends State<SettingScreen> {
           children: [
             //! Container 1
             Expanded(
-              flex: 4,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 150,
-                    width: 150,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      border: Border.all(
-                        width: 3,
-                        color: Colors.grey,
-                        style: BorderStyle.solid,
+              flex: 3,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 150,
+                      width: 150,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        border: Border.all(
+                          width: 3,
+                          color: Colors.grey,
+                          style: BorderStyle.solid,
+                        ),
+                      ),
+                      child: Center(
+                          child: Image.asset(
+                        AppImages.companyLogo,
+                        fit: BoxFit.fill,
+                      )),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Shiv Suman",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                letterSpacing: 1,
+                                fontFamily: "Poppins"),
+                          )
+                        ],
                       ),
                     ),
-                    child: Center(
-                        child: Image.asset(
-                      AppImages.companyLogo,
-                      fit: BoxFit.fill,
-                    )),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Shiv Suman",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              letterSpacing: 1,
-                              fontFamily: "Poppins"),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
 
@@ -145,8 +147,9 @@ class _SettingScreenState extends State<SettingScreen> {
                           ),
                         ),
                         onTap: () {
-                        BlocProvider.of<GetProfileDetailsCubit>(context).getUserDetailsFunction();
-                        NavigationHelper.navigateTo(context, ProfileScreen());
+                          BlocProvider.of<GetProfileDetailsCubit>(context)
+                              .getUserDetailsFunction();
+                          NavigationHelper.navigateTo(context, ProfileScreen());
                         },
                       ),
                     ),
@@ -156,9 +159,9 @@ class _SettingScreenState extends State<SettingScreen> {
                         color: Colors.black.withOpacity(0.3),
                       ),
                     ),
-                
+
                     //! Change Password
-                
+
                     Padding(
                       padding: EdgeInsets.all(12.0),
                       child: GestureDetector(
@@ -172,14 +175,13 @@ class _SettingScreenState extends State<SettingScreen> {
                           ),
                           leading: Image.asset(
                             AllIcons.changepassword,
-                           height: 70,
+                            height: 70,
                             width: 70,
                           ),
                         ),
                         onTap: () {
-                          ValidationAllVariables.changePasswordPage = true;
                           NavigationHelper.navigateTo(
-                              context, ForgotPasswordScreen());
+                              context, ChangePasswordScreen());
                         },
                       ),
                     ),
@@ -189,12 +191,12 @@ class _SettingScreenState extends State<SettingScreen> {
                         color: Colors.black.withOpacity(0.3),
                       ),
                     ),
-                
+
                     //! Notifications
-                
+
                     Padding(
-                      padding:
-                          const EdgeInsets.only(top: 12.0, bottom: 15, left: 15),
+                      padding: const EdgeInsets.only(
+                          top: 12.0, bottom: 15, left: 15),
                       child: ListTile(
                         title: const Text(
                           "Notifications",
@@ -205,12 +207,11 @@ class _SettingScreenState extends State<SettingScreen> {
                         ),
                         leading: Image.asset(
                           AllIcons.notification2,
-                    
                           height: 70,
-                            width: 70,
+                          width: 70,
                         ),
                         trailing: Switch(
-                            activeColor:AppColors.buttonColorNew,
+                            activeColor: AppColors.buttonColorNew,
                             value: _switchValue,
                             onChanged: (value) {
                               setState(() {
@@ -225,9 +226,9 @@ class _SettingScreenState extends State<SettingScreen> {
                         color: Colors.black.withOpacity(0.3),
                       ),
                     ),
-                
+
                     //! Delete Account
-                
+
                     Padding(
                       padding: EdgeInsets.all(12.0),
                       child: GestureDetector(
@@ -241,7 +242,6 @@ class _SettingScreenState extends State<SettingScreen> {
                           ),
                           leading: Image.asset(
                             AllIcons.deleteAccount,
-                        
                             height: 70,
                             width: 70,
                           ),
