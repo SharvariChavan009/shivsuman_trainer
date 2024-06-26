@@ -1,5 +1,4 @@
-import 'package:car_trainer_application/features/home/training_videos/presentation/functions.dart';
-import 'package:car_trainer_application/features/home/training_videos/presentation/globals.dart';
+import 'package:car_trainer_application/core/common/utils/screen_dimension.dart';
 import 'package:car_trainer_application/features/home/training_videos/presentation/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -12,9 +11,69 @@ class VideoPlayerScreen1 extends StatefulWidget {
 }
 
 class _VideoPlayerScreen1State extends State<VideoPlayerScreen1> {
+  // ! --------------------------------------------------------
+  VideoPlayerController videoPlayerController =
+      VideoPlayerController.network('');
+  ValueNotifier<Future<void>?> videoFuture = ValueNotifier(null);
+
+  int? SelectIndex;
+
+  @override
+  void initState() {
+    videoFuture.value = play(videos[0]);
+    setState(() {
+      SelectIndex = 0;
+    });
+    super.initState();
+  }
+
+  List<String> videos = [
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+    'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+  ];
+
+  final videoThumbnailUrl = [
+    {
+      'name': "Elephant Dream",
+      'thumbnailUrl':
+          "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ElephantsDream.jpg",
+    },
+    {
+      'name': "Big Buck Bunny",
+      'thumbnailUrl':
+          "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg",
+    },
+    {
+      'name': "For Bigger Blazes",
+      'thumbnailUrl':
+          "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg",
+    },
+    {
+      'name': "For Bigger Escape",
+      'thumbnailUrl':
+          "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerEscapes.jpg"
+    }
+  ];
+
+  Future<void> play(String url) async {
+    if (url.isEmpty) return;
+    if (videoPlayerController.value.isInitialized) {
+      await videoPlayerController.dispose();
+    }
+    videoPlayerController = VideoPlayerController.network(url);
+    return videoPlayerController
+        .initialize()
+        .then((value) => videoPlayerController.play());
+  }
+
+  // ! --------------------------------------------------------
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
@@ -43,18 +102,50 @@ class _VideoPlayerScreen1State extends State<VideoPlayerScreen1> {
 
             //!  Bottom - ListView
 
+            SizedBox(
+              height: 10,
+            ),
             Expanded(
               child: ListView.builder(
-                padding: EdgeInsets.zero,
-                itemCount: videos.length,
-
-                itemBuilder: (context, index) => ListTile(
-                  title: Text('Video ${index + 1}'),
-                  subtitle: Text(videos[index]),
-                  onTap: () => videoFuture.value = play(videos[index]),
-                ),
-// ...
-              ),
+                  padding: EdgeInsets.zero,
+                  itemCount: videos.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      elevation: 3,
+                      color: index == SelectIndex ? Colors.blue : Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListTile(
+                            leading: Image.network(videoThumbnailUrl[index]
+                                    ['thumbnailUrl']
+                                .toString()),
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: ScreenDimension.screenWidth * 0.60,
+                                  child: Text(
+                                    textAlign: TextAlign.start,
+                                    videoThumbnailUrl[index]['name'].toString(),
+                                    style: TextStyle(
+                                        color: index == SelectIndex
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 14,
+                                        fontFamily: "Poppins"),
+                                  ),
+                                )
+                              ],
+                            ),
+                            onTap: () {
+                              videoFuture.value = play(videos[index]);
+                              setState(() {
+                                SelectIndex = index;
+                              });
+                            }),
+                      ),
+                    );
+                  }),
             ),
           ],
         ),
