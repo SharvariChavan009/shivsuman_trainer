@@ -106,12 +106,7 @@ class _StudentScreenState extends State<StudentScreen> {
               ),
             ),
             onTap: () {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return StudentDetailScreen();
-                },
-              );
+             NavigationHelper.navigateTo(context,StudentDetailScreen());
               print("Click to student Index: $index");
             },
           );
