@@ -1,3 +1,4 @@
+import 'package:car_trainer_application/core/common/colors.dart';
 import 'package:flutter/material.dart';
 
 class BlankScreen extends StatelessWidget {
@@ -34,7 +35,9 @@ class LoadingWidget extends StatelessWidget {
         children: [
           SizedBox.square(
             dimension: 15,
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: AppColors.buttonColorNew,
+            ),
           ),
           SizedBox(width: 20),
           Text(
