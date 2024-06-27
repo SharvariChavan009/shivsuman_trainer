@@ -1,16 +1,19 @@
 import 'package:car_trainer_application/core/common/colors.dart';
 
 import 'package:car_trainer_application/core/common/utils/screen_dimension.dart';
+import 'package:car_trainer_application/core/navigation/navigationHelper.dart';
+import 'package:car_trainer_application/features/splash/presentation/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-class DeleteDialog extends StatefulWidget {
-  const DeleteDialog({super.key});
+class LogoutDialog extends StatefulWidget {
+  const LogoutDialog({super.key});
 
   @override
-  State<DeleteDialog> createState() => _DeleteDialog();
+  State<LogoutDialog> createState() => _LogoutDialog();
 }
 
-class _DeleteDialog extends State<DeleteDialog> {
+class _LogoutDialog extends State<LogoutDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -36,15 +39,15 @@ class _DeleteDialog extends State<DeleteDialog> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 2, top: 20),
+                  padding: const EdgeInsets.only(left: 50, top: 20),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
-                        width: ScreenDimension.screenWidth * 0.70,
+                        width: ScreenDimension.screenWidth * 0.55,
                         child: Text(
                           textAlign: TextAlign.start,
-                          "Do you want to delete this account?",
+                          "Do you want to logout?",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -111,7 +114,12 @@ class _DeleteDialog extends State<DeleteDialog> {
                             ),
                           ),
                         ),
-                        onTap: () {},
+                        onTap: () async {
+                          var authBox = await Hive.openBox("authBox");                
+                          print("Token --> ${authBox.get("authToken")}");
+                          authBox.delete("authToken");
+                          NavigationHelper.navigateAndRemoveUntil(context, SplashScreen());
+                        },
                       ),
                     ],
                   ),

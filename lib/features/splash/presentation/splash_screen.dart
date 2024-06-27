@@ -5,6 +5,7 @@ import 'package:car_trainer_application/features/auth/presentation/login_screen.
 import 'package:car_trainer_application/features/home/presentation/home_screen.dart';
 import 'package:car_trainer_application/features/home/settings/presentation/setting_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,12 +15,30 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  Future<void> checkLoginStatus() async {
+    var authBox = await Hive.openBox("authBox");
+
+    Future.delayed(const Duration(milliseconds: 3000), () {
+      try {
+        String? authToken = authBox.get("authToken");
+        print("authToken =$authToken");
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (context) => (authBox.get("authToken") == null)
+                    ? LoginScreen()
+                    : HomeScreen()),
+            (Route route) => false);
+      } catch (e) {
+        debugPrint('Error navigating to LoginScreen: $e');
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
-      NavigationHelper.navigateAndRemoveUntil(context, LoginScreen());
-    });
+
+    checkLoginStatus();
   }
 
   @override
@@ -58,7 +77,6 @@ class _SplashScreenState extends State<SplashScreen> {
           Container(
             child: Image.asset(
               AppImages.splashImage,
-
             ),
           )
         ],

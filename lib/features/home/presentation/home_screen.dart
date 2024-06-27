@@ -3,12 +3,15 @@ import 'package:car_trainer_application/core/common/colors.dart';
 import 'package:car_trainer_application/core/common/images/images_constant.dart';
 import 'package:car_trainer_application/core/common/utils/screen_dimension.dart';
 import 'package:car_trainer_application/core/navigation/navigationHelper.dart';
+import 'package:car_trainer_application/features/home/delete_accountt/dialogBox/delete_dialog.dart';
 import 'package:car_trainer_application/features/home/expenses/presentation/expenses_screen.dart';
+import 'package:car_trainer_application/features/home/logout_account/dialogBox/logout_dialog.dart';
 import 'package:car_trainer_application/features/home/notification/presentation/notification_screen.dart';
 import 'package:car_trainer_application/features/home/self_attendence/presentation/self_attendence_screen.dart';
 import 'package:car_trainer_application/features/home/settings/presentation/setting_screen.dart';
 import 'package:car_trainer_application/features/home/student/presentation/student_screen.dart';
-import 'package:car_trainer_application/features/home/training_videos/presentation/training_videos_screen.dart';
+
+import 'package:car_trainer_application/features/home/training_videos/presentation/videoPlayerScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -104,7 +107,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       child: SizedBox(
                                         height:
                                             ScreenDimension.screenHeight * 0.10,
-                                        width: ScreenDimension.screenWidth * 0.28,
+                                        width:
+                                            ScreenDimension.screenWidth * 0.28,
                                         child: Image.asset(
                                           listviewImageContainers[index],
                                           fit: BoxFit.fill,
@@ -132,10 +136,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             onTap: () {
                               print("Click Carousel Index: $index");
-                
+
                               if (index == 0) {
                                 NavigationHelper.navigateTo(
-                                    context, TrainingVideosScreen());
+                                    context,(VideoPlayerScreen1()));
                               } else if (index == 1) {
                                 NavigationHelper.navigateTo(
                                     context, SelfAttendenceScreen());
@@ -259,7 +263,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               NavigationHelper.navigateTo(
                                   context, const SettingScreen());
                             } else if (index == 3) {
-                              print("Clicked - Logout");
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return LogoutDialog();
+                                },
+                              );
                             }
                           },
                         );
