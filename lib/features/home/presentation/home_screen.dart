@@ -7,11 +7,13 @@ import 'package:car_trainer_application/features/home/delete_accountt/dialogBox/
 import 'package:car_trainer_application/features/home/expenses/presentation/expenses_screen.dart';
 import 'package:car_trainer_application/features/home/logout_account/dialogBox/logout_dialog.dart';
 import 'package:car_trainer_application/features/home/notification/presentation/notification_screen.dart';
+import 'package:car_trainer_application/features/home/notificationservice/local_notification_service.dart';
 import 'package:car_trainer_application/features/home/self_attendence/presentation/self_attendence_screen.dart';
 import 'package:car_trainer_application/features/home/settings/presentation/setting_screen.dart';
 import 'package:car_trainer_application/features/home/student/presentation/student_screen.dart';
 
 import 'package:car_trainer_application/features/home/training_videos/presentation/videoPlayerScreen.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -50,6 +52,57 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+//! ---------------- Notification code ----------------
+
+  @override
+  void initState() {
+    // Todo: 1. This method call when app in terminated state and you get a notification. when you click on notification app open from terminated state and you can get notification data in this method
+
+    FirebaseMessaging.instance.getInitialMessage().then(
+      (message) {
+        print("FirebaseMessaging.instance.getInitialMessage");
+        if (message != null) {
+          print("New Notification");
+          // if (message.data['_id'] != null) {
+          //   Navigator.of(context).push(
+          //     MaterialPageRoute(
+          //       builder: (context) => DemoScreen(
+          //         id: message.data['_id'],
+          //       ),
+          //     ),
+          //   );
+          // }
+        }
+      },
+    );
+
+    // Todo: 2. This method only call when App in forground it mean app must be opened
+    FirebaseMessaging.onMessage.listen(
+      (message) {
+        print("FirebaseMessaging.onMessage.listen");
+        if (message.notification != null) {
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data11 ${message.data}");
+          LocalNotificationService.createanddisplaynotification(message);
+        }
+      },
+    );
+
+    // Todo: 3. This method only call when App in background and not terminated(not closed)
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (message) {
+        print("FirebaseMessaging.onMessageOpenedApp.listen");
+        if (message.notification != null) {
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data22 ${message.data['_id']}");
+        }
+      },
+    );
+
+    super.initState();
+  }
   // -----------------------------------------------------
 
   @override
@@ -139,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                               if (index == 0) {
                                 NavigationHelper.navigateTo(
-                                    context,(VideoPlayerScreen1()));
+                                    context, (VideoPlayerScreen1()));
                               } else if (index == 1) {
                                 NavigationHelper.navigateTo(
                                     context, SelfAttendenceScreen());

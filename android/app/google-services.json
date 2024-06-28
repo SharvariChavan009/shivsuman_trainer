@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1029354322178",
+    "firebase_url": "https://shivsumantrainer-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "shivsumantrainer",
+    "storage_bucket": "shivsumantrainer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029354322178:android:b806bec923f7687a5c6a1b",
+        "android_client_info": {
+          "package_name": "com.shivsumantrainer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHWxDU3gdy6QFainXWAkV4RY4HsJIqimU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

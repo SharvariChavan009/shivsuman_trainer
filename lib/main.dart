@@ -4,6 +4,7 @@ import 'package:car_trainer_application/features/auth/cubit/reset_password/reset
 import 'package:car_trainer_application/features/auth/cubit/verify_otp/verify_otp_cubit.dart';
 import 'package:car_trainer_application/features/home/change_password/cubit/change_password/change_password_cubit.dart';
 import 'package:car_trainer_application/features/home/change_password/cubit/old_password_validation/old_password_cubit.dart';
+import 'package:car_trainer_application/features/home/notificationservice/local_notification_service.dart';
 import 'package:car_trainer_application/features/home/presentation/home_screen.dart';
 import 'package:car_trainer_application/features/home/profile/cubit/edit_profile_details/edit_profile_details_cubit.dart';
 import 'package:car_trainer_application/features/home/profile/cubit/get_profile_details/get_profile_details_cubit.dart';
@@ -17,11 +18,39 @@ import 'package:car_trainer_application/features/auth/presentation/login_screen.
 import 'package:car_trainer_application/features/home/settings/presentation/setting_screen.dart';
 
 import 'package:car_trainer_application/features/splash/presentation/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+//! ----------------- Notification Code --------------------------------
+String deviceTokenToSendPushNotification = ""; // FCM Token
+
+Future<void> getDeviceTokenToSendNotification() async {
+  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+  final token = await _fcm.getToken();
+  deviceTokenToSendPushNotification = token.toString();
+  print("Token Value --> $deviceTokenToSendPushNotification");
+}
+
+Future<void> backgroundHandler(RemoteMessage message) async {
+  print(message.data.toString());
+  print(message.notification!.title);
+}
+
+//! ----------------------------------------------------------------
 void main() async {
+  //* Firebase notification
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  getDeviceTokenToSendNotification();
+  LocalNotificationService.initialize();
+  FirebaseMessaging.onBackgroundMessage(backgroundHandler);
+
+  //* Hive database
+
   await Hive.initFlutter();
   runApp(const MyApp());
 }
