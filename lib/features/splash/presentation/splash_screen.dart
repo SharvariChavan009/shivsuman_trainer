@@ -1,7 +1,9 @@
 import 'package:car_trainer_application/core/common/images/images_constant.dart';
 import 'package:car_trainer_application/core/common/utils/screen_dimension.dart';
 import 'package:car_trainer_application/core/navigation/navigationHelper.dart';
+import 'package:car_trainer_application/features/auth/presentation/confirm_password_screen.dart';
 import 'package:car_trainer_application/features/auth/presentation/login_screen.dart';
+import 'package:car_trainer_application/features/auth/presentation/otp_screen.dart';
 import 'package:car_trainer_application/features/home/presentation/home_screen.dart';
 import 'package:car_trainer_application/features/home/settings/presentation/setting_screen.dart';
 import 'package:flutter/material.dart';

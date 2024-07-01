@@ -243,7 +243,7 @@ class _VideoPlayerScreen1State extends State<VideoPlayerScreen1> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               SizedBox(
-                                width: ScreenDimension.screenWidth * 0.60,
+                                width: ScreenDimension.screenWidth * 0.50,
                                 child: Text(
                                   textAlign: TextAlign.start,
                                   videoThumbnailUrl[index]['name'].toString(),
