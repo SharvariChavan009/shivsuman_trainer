@@ -51,6 +51,12 @@ dependencies:
   email_validator: ^3.0.0
   video_player: ^2.8.7
   chewie: ^1.2.2
+  flutter_launcher_icons:
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "asset/images/companyLogo.webp"
 
 dev_dependencies:
   flutter_test:

@@ -64,13 +64,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               );
             }
-           
+
             if (state is LoginFailedfulState) {
               showErrorSnackbar("Login Failed");
             }
-             if (state is LoginSuccessfulState) {
-              NavigationHelper.navigateAndRemoveUntil(
-                  context, const HomeScreen());
+            if (state is LoginSuccessfulState) {
+              // NavigationHelper.navigateAndRemoveUntil(
+              //     context, const HomeScreen());
             }
           },
           child: Column(
@@ -210,6 +210,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: GestureDetector(
                           child: CommonButton(buttonName: "Log in"),
                           onTap: () {
+                            // NavigationHelper.navigateAndRemoveUntil(
+                            //     context, const HomeScreen());
+
                             BlocProvider.of<EmailCubit>(context)
                                 .Loginvalidation1(emailController.text);
                             BlocProvider.of<PasswordCubit>(context)
@@ -219,6 +222,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     emailController.text) &&
                                 ValidationsAll.isValidPassword(
                                     passwordController.text)) {
+
                               BlocProvider.of<CheckEmailPassCubit>(context)
                                   .Loginvalidation3(emailController.text,
                                       passwordController.text);
